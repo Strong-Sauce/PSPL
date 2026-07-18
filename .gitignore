@@ -31,3 +31,28 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# ==========================
+# Spring Boot / Maven
+# ==========================
+target/
+*.class
+
+# Maven Wrapper (keep the scripts, ignore only downloaded JAR)
+.mvn/wrapper/maven-wrapper.jar
+
+# Logs
+*.log
+logs/
+
+# Local Spring configuration
+application.properties
+application.yml
+application.yaml
+
+# Environment variables
+.env
+.env.*
+
+# Java temporary files
+*.tmp
