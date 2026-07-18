@@ -1,0 +1,53 @@
+<aside class="sidebar" [class.collapsed]="collapsed()">
+  <!-- Products Dropdown -->
+  <div class="sidebar-section">
+    <button class="section-header" (click)="toggleProducts()">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="2" y="3" width="20" height="18" rx="2"/>
+        <path d="M8 7h8M8 11h8M8 15h4"/>
+      </svg>
+      <span class="section-title">Your Products</span>
+      <svg class="chevron" [class.open]="productsOpen()" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="6 9 12 15 18 9"/>
+      </svg>
+    </button>
+    @if (productsOpen()) {
+      <div class="section-list">
+        @for (product of products(); track product.productId) {
+          <a [routerLink]="['/products', product.productId]" class="sidebar-item">
+            <span class="item-dot"></span>
+            {{ product.productName }}
+          </a>
+        } @empty {
+          <p class="empty-msg">No products found</p>
+        }
+      </div>
+    }
+  </div>
+
+  <!-- Warranties Dropdown -->
+  <div class="sidebar-section">
+    <button class="section-header" (click)="toggleWarranties()">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+      </svg>
+      <span class="section-title">Expiring Warranties</span>
+      <svg class="chevron" [class.open]="warrantiesOpen()" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="6 9 12 15 18 9"/>
+      </svg>
+    </button>
+    @if (warrantiesOpen()) {
+      <div class="section-list">
+        @for (warranty of warranties(); track warranty.warrantyId) {
+          <a [routerLink]="['/warranties', warranty.warrantyId]" class="sidebar-item">
+            <span class="item-dot warning"></span>
+            Expires: {{ warranty.warrantyEndDate }}
+          </a>
+        } @empty {
+          <p class="empty-msg">No expiring warranties</p>
+        }
+      </div>
+    }
+  </div>
+</aside>
+

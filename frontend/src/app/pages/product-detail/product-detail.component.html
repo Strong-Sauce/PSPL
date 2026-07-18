@@ -1,0 +1,108 @@
+<div class="page-container">
+  <div class="page-header">
+    <a routerLink="/" class="back-link">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="15 18 9 12 15 6"/>
+      </svg>
+      Back
+    </a>
+    <h1>Product Details</h1>
+  </div>
+
+  @if (loading()) {
+    <div class="loading-state">Loading...</div>
+  } @else if (product(); as p) {
+    <div class="detail-card">
+      <div class="detail-top">
+        <div class="detail-icon">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="2" y="3" width="20" height="18" rx="2"/>
+            <path d="M8 7h8M8 11h8M8 15h4"/>
+          </svg>
+        </div>
+        <div class="detail-actions">
+          @if (!editing()) {
+            <button class="btn btn-secondary" (click)="startEdit()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+              </svg>
+              Update
+            </button>
+            <button class="btn btn-danger" (click)="deleteProduct()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="3 6 5 6 21 6"/>
+                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+              </svg>
+              Delete
+            </button>
+          }
+        </div>
+      </div>
+
+      @if (editing()) {
+        <div class="edit-form">
+          <div class="form-group">
+            <label>Product Name</label>
+            <input
+              type="text"
+              [ngModel]="editName()"
+              (ngModelChange)="editName.set($event)"
+              name="editName"
+            />
+          </div>
+          <div class="form-group">
+            <label>Serial Number</label>
+            <input
+              type="text"
+              [ngModel]="editSerial()"
+              (ngModelChange)="editSerial.set($event)"
+              name="editSerial"
+            />
+          </div>
+          <div class="form-actions">
+            <button class="btn btn-secondary" (click)="cancelEdit()">Cancel</button>
+            <button class="btn btn-primary" (click)="saveEdit()">Save Changes</button>
+          </div>
+        </div>
+      } @else {
+        <div class="detail-props">
+          <div class="prop-row">
+            <span class="prop-label">ID</span>
+            <span class="prop-value">{{ p.productId }}</span>
+          </div>
+          <div class="prop-row">
+            <span class="prop-label">Name</span>
+            <span class="prop-value">{{ p.productName }}</span>
+          </div>
+          <div class="prop-row">
+            <span class="prop-label">Serial Number</span>
+            <span class="prop-value">{{ p.productSerialNumber }}</span>
+          </div>
+          <div class="prop-row">
+            <span class="prop-label">Warranties</span>
+            <span class="prop-value">{{ p.warrantyList?.length || 0 }}</span>
+          </div>
+        </div>
+
+        @if (p.warrantyList && p.warrantyList.length > 0) {
+          <div class="sub-section">
+            <h3>Associated Warranties</h3>
+            <div class="sub-grid">
+              @for (w of p.warrantyList; track w.warrantyId) {
+                <div class="sub-card">
+                  <p><strong>Start:</strong> {{ w.warrantyStartDate }}</p>
+                  <p><strong>End:</strong> {{ w.warrantyEndDate }}</p>
+                  <p class="sub-badge">{{ w.amcList?.length || 0 }} AMC extensions</p>
+                </div>
+              }
+            </div>
+          </div>
+        }
+      }
+    </div>
+  } @else {
+    <div class="empty-state">Product not found.</div>
+  }
+</div>
+

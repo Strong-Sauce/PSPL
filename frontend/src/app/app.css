@@ -1,0 +1,22 @@
+:host {
+  display: block;
+  min-height: 100vh;
+}
+
+.main-content {
+  margin-top: 60px;
+  margin-left: 0; /* Default: no sidebar (auth pages, or collapsed) */
+  min-height: calc(100vh - 60px);
+  background: #f8f9fc;
+  overflow-y: auto;
+  transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* When sidebar is visible and expanded, push main content right */
+.main-content.with-sidebar {
+  margin-left: 260px;
+}
+
+.main-content.sidebar-collapsed {
+  margin-left: 0;
+}

@@ -1,0 +1,14 @@
+<app-navbar (toggleSidebar)="toggleSidebar()" />
+
+<!-- Sidebar only shows when user is logged in and on a non-auth page -->
+@if (showSidebar()) {
+  <app-sidebar [collapsed]="sidebarCollapsed()" />
+}
+
+<!-- Main content area: gets left margin only when sidebar is visible -->
+<main
+  class="main-content"
+  [class.with-sidebar]="showSidebar() && !sidebarCollapsed()"
+>
+  <router-outlet />
+</main>

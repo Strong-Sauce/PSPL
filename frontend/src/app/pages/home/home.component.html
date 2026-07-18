@@ -1,0 +1,143 @@
+<div class="home-container">
+  <!-- ===== PRODUCTS SECTION ===== -->
+  <section class="section">
+    <div class="section-header">
+      <h2>Your Products</h2>
+      <div class="section-actions">
+        <div class="search-box">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+          <input
+            type="text"
+            placeholder="Search products..."
+            [ngModel]="productSearch()"
+            (ngModelChange)="onProductSearch($event)"
+          />
+        </div>
+        <a routerLink="/products/new" class="btn btn-primary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+          </svg>
+          Add Product
+        </a>
+      </div>
+    </div>
+
+    <div class="card-grid">
+      @for (product of pagedProducts(); track product.productId) {
+        <a [routerLink]="['/products', product.productId]" class="card">
+          <div class="card-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <rect x="2" y="3" width="20" height="18" rx="2"/>
+              <path d="M8 7h8M8 11h8M8 15h4"/>
+            </svg>
+          </div>
+          <h3 class="card-title">{{ product.productName }}</h3>
+          <p class="card-subtitle">S/N: {{ product.productSerialNumber }}</p>
+          <div class="card-badge">
+            {{ product.warrantyList?.length || 0 }} warranties
+          </div>
+        </a>
+      } @empty {
+        <div class="empty-state">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+            <rect x="2" y="3" width="20" height="18" rx="2"/>
+            <path d="M8 7h8M8 11h8M8 15h4"/>
+          </svg>
+          <p>No products found</p>
+        </div>
+      }
+    </div>
+
+    @if (totalProductPages() > 1) {
+      <div class="pagination">
+        <button
+          [disabled]="productPage() === 0"
+          (click)="setProductPage(productPage() - 1)"
+          class="page-btn"
+        >&laquo; Prev</button>
+        @for (p of [].constructor(totalProductPages()); track $index) {
+          <button
+            [class.active]="$index === productPage()"
+            (click)="setProductPage($index)"
+            class="page-btn"
+          >{{ $index + 1 }}</button>
+        }
+        <button
+          [disabled]="productPage() >= totalProductPages() - 1"
+          (click)="setProductPage(productPage() + 1)"
+          class="page-btn"
+        >Next &raquo;</button>
+      </div>
+    }
+  </section>
+
+  <!-- ===== WARRANTIES SECTION ===== -->
+  <section class="section">
+    <div class="section-header">
+      <h2>Expiring Warranties</h2>
+      <div class="section-actions">
+        <div class="search-box">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+          <input
+            type="text"
+            placeholder="Search warranties..."
+            [ngModel]="warrantySearch()"
+            (ngModelChange)="onWarrantySearch($event)"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="card-grid">
+      @for (warranty of pagedWarranties(); track warranty.warrantyId) {
+        <div class="card card-warning">
+          <div class="card-icon warning">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            </svg>
+          </div>
+          <h3 class="card-title">Warranty</h3>
+          <p class="card-subtitle">Start: {{ warranty.warrantyStartDate }}</p>
+          <p class="card-subtitle">End: {{ warranty.warrantyEndDate }}</p>
+          <div class="card-badge warning">
+            {{ warranty.amcList?.length || 0 }} AMC extensions
+          </div>
+        </div>
+      } @empty {
+        <div class="empty-state">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+          <p>No expiring warranties</p>
+        </div>
+      }
+    </div>
+
+    @if (totalWarrantyPages() > 1) {
+      <div class="pagination">
+        <button
+          [disabled]="warrantyPage() === 0"
+          (click)="setWarrantyPage(warrantyPage() - 1)"
+          class="page-btn"
+        >&laquo; Prev</button>
+        @for (p of [].constructor(totalWarrantyPages()); track $index) {
+          <button
+            [class.active]="$index === warrantyPage()"
+            (click)="setWarrantyPage($index)"
+            class="page-btn"
+          >{{ $index + 1 }}</button>
+        }
+        <button
+          [disabled]="warrantyPage() >= totalWarrantyPages() - 1"
+          (click)="setWarrantyPage(warrantyPage() + 1)"
+          class="page-btn"
+        >Next &raquo;</button>
+      </div>
+    }
+  </section>
+</div>
+

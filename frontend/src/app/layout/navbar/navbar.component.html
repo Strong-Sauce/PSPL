@@ -1,0 +1,47 @@
+<nav class="navbar">
+  <div class="navbar-left">
+    <!-- Hamburger button — only visible when user is logged in -->
+    @if (isAuthenticated()) {
+      <button class="sidebar-toggle" (click)="onToggleSidebar()" aria-label="Toggle sidebar">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </button>
+    }
+    <a routerLink="/" class="logo">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+      </svg>
+      <span>PSPL AMC</span>
+    </a>
+  </div>
+
+  <!-- Center nav links — only shown when logged in -->
+  @if (isAuthenticated()) {
+    <div class="navbar-center">
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
+      <a routerLink="/about" routerLinkActive="active">About Us</a>
+      <a routerLink="/contact" routerLinkActive="active">Contact Us</a>
+    </div>
+  }
+
+  <div class="navbar-right">
+    @if (isAuthenticated()) {
+      <!-- Logged in: show profile link and logout button -->
+      <a routerLink="/profile" routerLinkActive="active" class="profile-link">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+          <circle cx="12" cy="7" r="4"/>
+        </svg>
+        <span>{{ currentUser()?.name }}</span>
+      </a>
+      <button class="logout-btn" (click)="onLogout()">Logout</button>
+    } @else {
+      <!-- Guest: show Login and Signup links -->
+      <a routerLink="/login" routerLinkActive="active" class="profile-link">Login</a>
+      <a routerLink="/signup" class="btn-signup">Sign Up</a>
+    }
+  </div>
+</nav>
