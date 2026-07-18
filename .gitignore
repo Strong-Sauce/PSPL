@@ -47,6 +47,7 @@ logs/
 
 # Local Spring configuration
 application.properties
+.properties
 application.yml
 application.yaml
 
