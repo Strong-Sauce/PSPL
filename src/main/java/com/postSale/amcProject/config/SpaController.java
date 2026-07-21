@@ -25,18 +25,10 @@ public class SpaController {
     // Forward known Angular GET routes to index.html.
     // Angular boots, reads the URL, and renders the right page client-side.
     @GetMapping(value = {
-            "/login",
-            "/signup",
-            "/forgot-password",
-            "/reset-password",
-            "/profile",
-            "/about",
-            "/contact",
-            "/products",
-            "/products/new",
-            "/products/{id}"
+            "/{path:^(?!api$).*$}",
+            "/**/{path:^(?!api$).*$}"
     })
-    public String forwardToAngular() {
+    public String forward() {
         return "forward:/index.html";
     }
 }

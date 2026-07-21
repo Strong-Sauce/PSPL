@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/warranty")
+@RequestMapping("api/warranty")
 public class WarrantyController {
 
     private final WarrantyService warrantyService;

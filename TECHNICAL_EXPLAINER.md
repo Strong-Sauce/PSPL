@@ -35,7 +35,7 @@ When the Angular frontend makes an HTTP request, it travels through **three laye
 
 ```java
 @RestController                          // ① Marks this class as a REST API controller
-@RequestMapping("/products")             // ② All endpoints start with /products
+@RequestMapping("api/products")             // ② All endpoints start with /products
 public class ProductController {
 
     private final ProductService productService;  // ③ Dependency injection
@@ -65,13 +65,13 @@ public class ProductController {
 
 **Key annotations explained:**
 
-| Annotation | What it does |
-|------------|--------------|
-| `@RestController` | Combines `@Controller` + `@ResponseBody`. Returns JSON automatically. |
-| `@RequestMapping("/products")` | Base URL path for all methods in this controller |
-| `@GetMapping` / `@PostMapping` | Maps HTTP verbs to methods |
-| `@PathVariable` | Extracts `{id}` from the URL path |
-| `@RequestBody` | Deserializes JSON body into a Java object |
+| Annotation                        | What it does |
+|-----------------------------------|--------------|
+| `@RestController`                 | Combines `@Controller` + `@ResponseBody`. Returns JSON automatically. |
+| `@RequestMapping("api/products")` | Base URL path for all methods in this controller |
+| `@GetMapping` / `@PostMapping`    | Maps HTTP verbs to methods |
+| `@PathVariable`                   | Extracts `{id}` from the URL path |
+| `@RequestBody`                    | Deserializes JSON body into a Java object |
 
 > 💡 **Why separate from Service?** Controllers should only handle HTTP concerns (request/response). Business logic belongs in Services. This makes testing easier and keeps code organized.
 

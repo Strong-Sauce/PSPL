@@ -26,7 +26,7 @@ export class AuthService {
   private readonly router = inject(Router);
 
   // Base URL for auth endpoints (e.g. http://localhost:8080 in dev, empty in prod)
-  private readonly baseUrl = `${environment.apiBaseUrl}/api/auth`;
+  private readonly baseUrl = `${environment.apiBaseUrl}/auth`;
 
   // Signal: holds the current user or null. Components read this reactively.
   currentUser = signal<User | null>(null);

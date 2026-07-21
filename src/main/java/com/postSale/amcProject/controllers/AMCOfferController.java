@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/amc-offers")
+@RequestMapping("api/amc-offers")
 public class AMCOfferController {
 
     private final AMCOfferService amcOfferService;

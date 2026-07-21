@@ -28,6 +28,7 @@ public class ProductService {
         return productRepository.findAll();
     }
 
+//    @Transactional
     @Transactional(readOnly = true)
     public Optional<Product> getProductById(String id) {
         return productRepository.findById(id);

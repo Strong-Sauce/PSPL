@@ -31,9 +31,7 @@ public class SecurityConfig {
      * SecurityFilterChain defines the security rules for every HTTP request.
      */
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http,
-                                                    RestAuthenticationEntryPoint authEntryPoint)
-            throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http, RestAuthenticationEntryPoint authEntryPoint) throws Exception {
         http
                 // Disable CSRF - not needed for REST APIs using session cookies
                 // (CSRF is mainly a concern for browser form submissions, not JSON APIs)
